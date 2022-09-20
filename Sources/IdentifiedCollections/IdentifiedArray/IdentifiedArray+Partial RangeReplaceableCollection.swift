@@ -6,7 +6,7 @@ extension IdentifiedArray where Element: Identifiable, ID == Element.ID {
   ///
   /// - Complexity: O(1)
   @inlinable
-  public init() {
+  init() {
     self.init(id: \.id, _id: \.id, _dictionary: .init())
   }
 }
@@ -23,7 +23,7 @@ extension IdentifiedArray {
   /// - Complexity: O(`count`)
   @inlinable
   @discardableResult
-  public mutating func remove(at index: Int) -> Element {
+  mutating func remove(at index: Int) -> Element {
     self._dictionary.remove(at: index).value
   }
 
@@ -33,7 +33,7 @@ extension IdentifiedArray {
   ///   the underlying storage is released. The default is `false`.
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
+  mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
     self._dictionary.removeAll(keepingCapacity: keepCapacity)
   }
 
@@ -47,7 +47,7 @@ extension IdentifiedArray {
   ///   collection.
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func removeAll(
+  mutating func removeAll(
     where shouldBeRemoved: (Element) throws -> Bool
   ) rethrows {
     try self._dictionary.removeAll(where: { try shouldBeRemoved($0.value) })
@@ -63,7 +63,7 @@ extension IdentifiedArray {
   /// - Complexity: O(`count`).
   @inlinable
   @discardableResult
-  public mutating func removeFirst() -> Element {
+  mutating func removeFirst() -> Element {
     self._dictionary.removeFirst().value
   }
 
@@ -77,7 +77,7 @@ extension IdentifiedArray {
   ///   elements in the collection.
   /// - Complexity: O(`count`).
   @inlinable
-  public mutating func removeFirst(_ n: Int) {
+  mutating func removeFirst(_ n: Int) {
     self._dictionary.removeFirst(n)
   }
 
@@ -88,7 +88,7 @@ extension IdentifiedArray {
   /// - Complexity: Expected to be O(`1`) on average, if `ID` implements high-quality hashing.
   @inlinable
   @discardableResult
-  public mutating func removeLast() -> Element {
+  mutating func removeLast() -> Element {
     self._dictionary.removeLast().value
   }
 
@@ -99,7 +99,7 @@ extension IdentifiedArray {
   ///   elements in the collection.
   /// - Complexity: Expected to be O(`n`) on average, if `ID` implements high-quality hashing.
   @inlinable
-  public mutating func removeLast(_ n: Int) {
+  mutating func removeLast(_ n: Int) {
     self._dictionary.removeLast(n)
   }
 
@@ -111,7 +111,7 @@ extension IdentifiedArray {
   /// - Precondition: The bounds of the range must be valid indices of the collection.
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func removeSubrange(_ bounds: Range<Int>) {
+  mutating func removeSubrange(_ bounds: Range<Int>) {
     self._dictionary.removeSubrange(bounds)
   }
 
@@ -123,7 +123,7 @@ extension IdentifiedArray {
   /// - Precondition: The bounds of the range must be valid indices of the collection.
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func removeSubrange<R>(_ bounds: R)
+  mutating func removeSubrange<R>(_ bounds: R)
   where R: RangeExpression, R.Bound == Int {
     self._dictionary.removeSubrange(bounds)
   }
@@ -143,7 +143,7 @@ extension IdentifiedArray {
   ///   store without reallocating its storage.
   /// - Complexity: O(`max(count, minimumCapacity)`)
   @inlinable
-  public mutating func reserveCapacity(_ minimumCapacity: Int) {
+  mutating func reserveCapacity(_ minimumCapacity: Int) {
     self._dictionary.reserveCapacity(minimumCapacity)
   }
 }
@@ -152,10 +152,10 @@ extension IdentifiedArray {
 
 extension IdentifiedArray {
   @available(*, unavailable, message: "use 'insert(_:at:)' with each element to handle duplicates")
-  public mutating func replaceSubrange<C>(_ subrange: Range<Index>, with newElements: C)
+  mutating func replaceSubrange<C>(_ subrange: Range<Index>, with newElements: C)
   where C: Collection, Self.Element == C.Element {}
 
   @available(*, unavailable, message: "use 'insert(_:at:)' with each element to handle duplicates")
-  public mutating func replaceSubrange<C, R>(_ subrange: R, with newElements: C)
+  mutating func replaceSubrange<C, R>(_ subrange: R, with newElements: C)
   where C: Collection, R: RangeExpression, Element == C.Element, Index == R.Bound {}
 }

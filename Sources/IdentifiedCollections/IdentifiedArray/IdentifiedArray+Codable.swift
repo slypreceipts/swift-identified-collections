@@ -1,6 +1,6 @@
 extension IdentifiedArray: Encodable where Element: Encodable {
   @inlinable
-  public func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var container = encoder.singleValueContainer()
     try container.encode(ContiguousArray(self._dictionary.values))
   }
@@ -10,7 +10,7 @@ extension IdentifiedArray: Encodable where Element: Encodable {
 extension IdentifiedArray: Decodable
 where Element: Decodable & Identifiable, ID == Element.ID {
   @inlinable
-  public init(from decoder: Decoder) throws {
+  init(from decoder: Decoder) throws {
     var container = try decoder.unkeyedContainer()
     self.init()
     while !container.isAtEnd {

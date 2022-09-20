@@ -13,7 +13,7 @@ extension IdentifiedArray {
   ///  `belongsInSecondPartition`, the returned index is equal to the collection's `endIndex`.
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func partition(
+  mutating func partition(
     by belongsInSecondPartition: (Element) throws -> Bool
   ) rethrows -> Int {
     try self._dictionary.partition { (_, value) in
@@ -25,7 +25,7 @@ extension IdentifiedArray {
   ///
   /// - Complexity: O(`count`)
   @inlinable
-  public mutating func reverse() {
+  mutating func reverse() {
     self._dictionary.reverse()
   }
 
@@ -38,7 +38,7 @@ extension IdentifiedArray {
   ///
   /// - Complexity: O(*n*), where *n* is the length of the collection.
   @inlinable
-  public mutating func shuffle() {
+  mutating func shuffle() {
     self._dictionary.shuffle()
   }
 
@@ -54,7 +54,7 @@ extension IdentifiedArray {
   ///   program, that sequence may change when your program is compiled using a different version of
   ///   Swift.
   @inlinable
-  public mutating func shuffle<T: RandomNumberGenerator>(using generator: inout T) {
+  mutating func shuffle<T: RandomNumberGenerator>(using generator: inout T) {
     self._dictionary.shuffle(using: &generator)
   }
 
@@ -86,7 +86,7 @@ extension IdentifiedArray {
   ///   an error during the sort, the elements may be in a different order, but none will be lost.
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
   @inlinable
-  public mutating func sort(
+  mutating func sort(
     by areInIncreasingOrder: (Element, Element) throws -> Bool
   ) rethrows {
     try self._dictionary.sort(by: { try areInIncreasingOrder($0.value, $1.value) })
@@ -103,7 +103,7 @@ extension IdentifiedArray {
   /// - Complexity: O(1) when the array's storage isn't shared with another value; O(`count`)
   ///   otherwise.
   @inlinable
-  public mutating func swapAt(_ i: Int, _ j: Int) {
+  mutating func swapAt(_ i: Int, _ j: Int) {
     self._dictionary.swapAt(i, j)
   }
 }
@@ -122,7 +122,7 @@ extension IdentifiedArray where Element: Comparable {
   ///
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
   @inlinable
-  public mutating func sort() {
+  mutating func sort() {
     self.sort(by: <)
   }
 }

@@ -296,8 +296,8 @@ import OrderedCollections
 /// should not be mutated in place, as it will drift from its associated dictionary key. Identified
 /// array is designed to avoid this invariant, with the exception of its *id-based* subscript.
 /// Mutating an element's id will result in a runtime error.
-public struct IdentifiedArray<ID, Element> where ID: Hashable {
-  public let id: KeyPath<Element, ID>
+struct IdentifiedArray<ID, Element> where ID: Hashable {
+  let id: KeyPath<Element, ID>
 
   // NB: Captures identity access. Direct access to `Identifiable`'s `.id` property is faster than
   //     key path access.
@@ -312,14 +312,14 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   /// - Complexity: O(1)
   @inlinable
   @inline(__always)
-  public var ids: OrderedSet<ID> { self._dictionary.keys }
+  var ids: OrderedSet<ID> { self._dictionary.keys }
 
   /// A read-only collection view for the elements contained in this array, as an `Array`.
   ///
   /// - Complexity: O(1)
   @inlinable
   @inline(__always)
-  public var elements: [Element] { self._dictionary.values.elements }
+  var elements: [Element] { self._dictionary.values.elements }
 
   @usableFromInline
   init(
@@ -353,7 +353,7 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   ///   element's id will cause a crash.
   @inlinable
   @inline(__always)
-  public subscript(id id: ID) -> Element? {
+  subscript(id id: ID) -> Element? {
     _read { yield self._dictionary[id] }
     _modify {
       yield &self._dictionary[id]
@@ -365,7 +365,7 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   }
 
   @inlinable
-  public func contains(_ element: Element) -> Bool {
+  func contains(_ element: Element) -> Bool {
     self._dictionary[self._id(element)] != nil
   }
 
@@ -390,7 +390,7 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   /// - Complexity: Expected to be O(1) on average, if `ID` implements high-quality hashing.
   @inlinable
   @inline(__always)
-  public func index(id: ID) -> Int? {
+  func index(id: ID) -> Int? {
     self._dictionary.index(forKey: id)
   }
 
@@ -405,7 +405,7 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   /// - Complexity: O(`count`)
   @inlinable
   @discardableResult
-  public mutating func remove(_ element: Element) -> Element? {
+  mutating func remove(_ element: Element) -> Element? {
     self._dictionary.removeValue(forKey: self._id(element))
   }
 
@@ -427,7 +427,7 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
   /// - Complexity: O(`count`)
   @inlinable
   @discardableResult
-  public mutating func remove(id: ID) -> Element? {
+  mutating func remove(id: ID) -> Element? {
     self._dictionary.removeValue(forKey: id)
   }
 }
@@ -440,5 +440,5 @@ public struct IdentifiedArray<ID, Element> where ID: Hashable {
 /// var users: IdentifiedArrayOf<User> = []
 /// ```
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-public typealias IdentifiedArrayOf<Element> = IdentifiedArray<Element.ID, Element>
+typealias IdentifiedArrayOf<Element> = IdentifiedArray<Element.ID, Element>
 where Element: Identifiable

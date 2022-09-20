@@ -1,6 +1,6 @@
 extension IdentifiedArray: Hashable where Element: Hashable {
   @inlinable
-  public func hash(into hasher: inout Hasher) {
+  func hash(into hasher: inout Hasher) {
     hasher.combine(self.id)
     hasher.combine(self.count)
     for element in self {

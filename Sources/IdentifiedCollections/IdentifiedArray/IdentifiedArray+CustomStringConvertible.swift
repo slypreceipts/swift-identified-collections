@@ -1,5 +1,5 @@
 extension IdentifiedArray: CustomStringConvertible {
-  public var description: String {
+  var description: String {
     var result = "["
     var first = true
     for item in self {

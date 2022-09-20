@@ -1,19 +1,19 @@
 extension IdentifiedArray: Collection {
   @inlinable
   @inline(__always)
-  public var startIndex: Int { self._dictionary.keys.startIndex }
+  var startIndex: Int { self._dictionary.keys.startIndex }
 
   @inlinable
   @inline(__always)
-  public var endIndex: Int { self._dictionary.keys.endIndex }
+  var endIndex: Int { self._dictionary.keys.endIndex }
 
   @inlinable
   @inline(__always)
-  public func index(after i: Int) -> Int { self._dictionary.keys.index(after: i) }
+  func index(after i: Int) -> Int { self._dictionary.keys.index(after: i) }
 
   @inlinable
   @inline(__always)
-  public subscript(position: Int) -> Element {
+  subscript(position: Int) -> Element {
     _read { yield self._dictionary.elements[position].value }
   }
 
@@ -24,7 +24,7 @@ extension IdentifiedArray: Collection {
   /// - Returns: An array of the elements that `isIncluded` allows.
   /// - Complexity: O(`count`)
   @inlinable
-  public func filter(
+  func filter(
     _ isIncluded: (Element) throws -> Bool
   ) rethrows -> Self {
     try .init(

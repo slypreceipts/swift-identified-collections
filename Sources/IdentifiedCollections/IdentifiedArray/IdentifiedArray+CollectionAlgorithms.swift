@@ -25,7 +25,7 @@ extension IdentifiedArray {  // : Partial MutableCollection
   ///   - destination: The destination offset.
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
   @inlinable
-  public mutating func move(fromOffsets source: IndexSet, toOffset destination: Int) {
+  mutating func move(fromOffsets source: IndexSet, toOffset destination: Int) {
     let lowerCount = distance(from: self.startIndex, to: destination)
     let upperCount = distance(from: destination, to: self.endIndex)
     _ = self._indexedStablePartition(
@@ -47,7 +47,7 @@ extension IdentifiedArray {  // : Partial RangeReplaceableCollection
   /// - Parameter offsets: The offsets of all elements to be removed.
   /// - Complexity: O(*n*) where *n* is the length of the collection.
   @inlinable
-  public mutating func remove(atOffsets offsets: IndexSet) {
+  mutating func remove(atOffsets offsets: IndexSet) {
     guard let firstRange = offsets.rangeView.first else {
       return
     }

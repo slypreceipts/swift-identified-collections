@@ -10,7 +10,7 @@ extension IdentifiedArray {
   @inlinable
   @inline(__always)
   @discardableResult
-  public mutating func append(_ item: Element) -> (inserted: Bool, index: Int) {
+  mutating func append(_ item: Element) -> (inserted: Bool, index: Int) {
     self.insert(item, at: self.endIndex)
   }
 
@@ -21,7 +21,7 @@ extension IdentifiedArray {
   /// - Complexity: The operation is expected to perform amortized O(1) copy, hash, and compare
   ///   operations on the `Element` type, if it implements high-quality hashing.
   @inlinable
-  public mutating func append<S>(contentsOf newElements: S)
+  mutating func append<S>(contentsOf newElements: S)
   where Element == S.Element, S: Sequence {
     for element in newElements {
       self.append(element)
@@ -42,7 +42,7 @@ extension IdentifiedArray {
   ///   to make room in the storage array to add the inserted element.)
   @inlinable
   @discardableResult
-  public mutating func insert(_ item: Element, at i: Int) -> (inserted: Bool, index: Int) {
+  mutating func insert(_ item: Element, at i: Int) -> (inserted: Bool, index: Int) {
     if let existing = self._dictionary.index(forKey: _id(item)) {
       return (false, existing)
     }
@@ -59,7 +59,7 @@ extension IdentifiedArray {
   /// - Complexity: Amortized O(1).
   @inlinable
   @discardableResult
-  public mutating func update(_ item: Element, at i: Int) -> Element {
+  mutating func update(_ item: Element, at i: Int) -> Element {
     let old = self._dictionary.elements[i].key
     precondition(
       _id(item) == old, "The replacement item must match the identity of the original"
@@ -77,7 +77,7 @@ extension IdentifiedArray {
   ///   operations on the `ID` type, if it implements high-quality hashing.
   @inlinable
   @discardableResult
-  public mutating func updateOrAppend(_ item: Element) -> Element? {
+  mutating func updateOrAppend(_ item: Element) -> Element? {
     self._dictionary.updateValue(item, forKey: _id(item))
   }
 
@@ -93,7 +93,7 @@ extension IdentifiedArray {
   ///   operations on the `ID` type, if it implements high-quality hashing.
   @inlinable
   @discardableResult
-  public mutating func updateOrInsert(
+  mutating func updateOrInsert(
     _ item: Element,
     at i: Int
   ) -> (originalMember: Element?, index: Int) {
